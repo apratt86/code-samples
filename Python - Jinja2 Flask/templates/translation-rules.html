@@ -1,0 +1,152 @@
+{% include '/site_template/header.html' %}
+
+<section class="container-fluid bg-gray rounded border border-dark py-4">
+    <h1 class="text-primary">{% if slug %}Updating {{ client_details.name }}{% else %}Add{% endif %} Translation Rules</h1>
+
+    <form action="" method="post">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h3 class="text-light pb-1 mb-3 border-bottom border-light">Unassigned Fields</h3>
+            </div>
+            <div class="col-md-6">
+                <h3 class="text-light pb-1 mb-3 border-bottom border-light">Sample Output</h3>
+            </div>
+        </div>
+        <div id="translation_rules">
+        {% for rule in rules %}
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div id="rule-set" class="input-group">
+                        <select id="field-{{ loop.index }}" class="form-select bg-dark text-primary w-25">
+                            {% for field in fields %}
+                                {% set selected = '' %}
+                                {% if field == rule[0] %}
+                                {% set selected = ' selected' %}
+                                {% endif %}
+                            <option value="{{ field }}"{{ selected }}>{{ field|upper }}</option>
+                            {% endfor %}
+                        </select>
+                        <input type="text" id="rule-{{ loop.index }}" name="rule-{{ loop.index }}" class="form-control bg-dark text-light w-75" aria-label="rule-{{ loop.index }}" placeholder="Rule..." value="{{ rule[1] }}" />
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <input type="text" id="{{ loop.index }}-sample" class="form-control bg-dark text-primary" readonly/>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+        <div id="add_rule_button" class="row">
+            <div class="col-md-6 mb-3">
+                <button id="add_rule" type="button" class="btn btn-light">+ Add New Rule</button>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</section>
+
+<script type="text/javascript">
+    (function( $ ) {
+        'use strict';
+
+        // Defined in the translation_init() function
+        var rules_container;
+        var add_rule_button;
+        var fields;
+
+        // Defined in the add_new_rule_handler() function
+        var rules;
+
+        /** Initialize the DOM variables */
+        function translation_init() {
+            // Defines the main rules container in the form
+            rules_container = document.getElementById( 'translation_rules' );
+            // Defines the add rule button DOM element
+            add_rule_button = document.getElementById( 'add_rule' );
+
+            // TO DO: Figure out a way to pass this to JS from Flask backend
+            // to generate the select field drop downs dynamically
+            fields = [
+                'vehicle_id',
+                'title',
+                'description',
+                'url',
+                'make',
+                'model',
+                'year',
+                'mileage',
+                'image_urls',
+                'image_tag',
+                'transmission',
+                'body_style',
+                'drivetrain',
+                'vin',
+                'price',
+                'exterior_color',
+                'state_of_vehicle',
+                'fuel_type',
+                'condition',
+                'sale_price',
+                'trim',
+                'address_addr1',
+                'address_city',
+                'address_region',
+                'address_country',
+                'address_postal_code',
+                'latitude',
+                'longitude'
+            ];
+        }
+
+        /** Returns the rule html when a new translation rule is created */
+        function rule_html() {
+            // Increment the rule index html id attribute
+            var rule_index = rules.length + 1;
+
+            // Create the wikimotive standard field options dynamically
+            var field_options = '<option value="">Select field...</option>';
+            for( var i = 0; i < fields.length; i++ ){
+                field_options += '<option value="' + fields[i] + '">' + fields[i].toUpperCase() + '</option>';
+            }
+
+            // Create the return HTML structure to insert when a new translation rule is created
+            var rule_html =
+            '<div class="row">'
+                +'<div class="col-md-6 mb-3">'
+                    +'<div id="rule-set" class="input-group">'
+                        +'<select id="field-' + rule_index +'" class="form-select bg-dark text-primary w-25">'
+                            +field_options
+                        +'</select>'
+                        +'<input type="text" id="rule-' + rule_index + '" name="rule-' + rule_index + '" class="form-control bg-dark text-light w-75" aria-label="rule-' + rule_index + '" placeholder="Rule..." value="" />'
+                    +'</div>'
+                +'</div>'
+                +'<div class="col-md-6 mb-3">'
+                    +'<input type="text" id="' + rule_index + '-sample" class="form-control bg-dark text-primary" readonly/>'
+                +'</div>'
+            +'</div>';
+
+            return rule_html;
+        }
+
+        /** Defines the click event when the "+ Add New Rule" button is clicked, appends a new rule field set */
+        function add_new_rule_handler() {
+            add_rule_button.addEventListener( 'click', function(){
+                // Reinstantiates the global rules variable to account for new rules that have been previously created
+                // Used in the rule_html() function to increment field ids
+                rules = document.querySelectorAll( '#rule-set' );
+                $( rules_container ).append( rule_html() );
+            } );
+        }
+
+        // Run the tranlsation_init on page load
+        window.addEventListener( 'load', translation_init );
+
+        // Run the add_new_rule_handler on page load
+        window.addEventListener( 'load', add_new_rule_handler );
+
+        // Fallback run the tranlsation_init anyway
+        translation_init();
+
+    })( jQuery );
+</script>
+
+{% include '/site_template/footer.html' %}

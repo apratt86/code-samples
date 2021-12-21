@@ -1,0 +1,354 @@
+{
+    "timestamp": "July 01, 2021 12:20 pm",
+    "counts": {
+        "total_inventory_rows": 956
+    },
+    "logs": {
+        "Processing ..\/inventory\/9028875.csv": [],
+        "Reading Inventory File": [],
+        "Field Mapping Module": [],
+        "Translation rules Module": [],
+        "FB Enum Replacements Module": [],
+        "FB Validation Module": [
+            {
+                "SUMMARY": "17 Rows dropped because description was empty.",
+                "ERRORS": [],
+                "WARNINGS": [
+                    "description was empty. Row 26 dropped.",
+                    "description was empty. Row 30 dropped.",
+                    "description was empty. Row 31 dropped.",
+                    "description was empty. Row 66 dropped.",
+                    "description was empty. Row 67 dropped.",
+                    "description was empty. Row 68 dropped.",
+                    "description was empty. Row 74 dropped.",
+                    "description was empty. Row 75 dropped.",
+                    "description was empty. Row 76 dropped.",
+                    "description was empty. Row 77 dropped.",
+                    "description was empty. Row 78 dropped.",
+                    "description was empty. Row 79 dropped.",
+                    "description was empty. Row 80 dropped.",
+                    "description was empty. Row 81 dropped.",
+                    "description was empty. Row 82 dropped.",
+                    "description was empty. Row 83 dropped.",
+                    "description was empty. Row 84 dropped."
+                ]
+            },
+
+            {
+                "SUMMARY": "11 Rows dropped because url was empty.",
+                "ERRORS": [],
+                "WARNINGS": [
+                    "'' url was empty. Row 75 dropped.",
+                    "'' url was empty. Row 76 dropped.",
+                    "'' url was empty. Row 77 dropped.",
+                    "'' url was empty. Row 78 dropped.",
+                    "'' url was empty. Row 79 dropped.",
+                    "'' url was empty. Row 80 dropped.",
+                    "'' url was empty. Row 81 dropped.",
+                    "'' url was empty. Row 82 dropped.",
+                    "'' url was empty. Row 83 dropped.",
+                    "'' url was empty. Row 84 dropped.",
+                    "'' url was empty. Row 176 dropped."
+                ]
+            },
+
+            {
+                "SUMMARY": "3 Rows dropped because model was empty.",
+                "ERRORS": [],
+                "WARNINGS": [
+                    "model was empty. Row 78 dropped.",
+                    "model was empty. Row 79 dropped.",
+                    "model was empty. Row 80 dropped."
+                ]
+            },
+
+            {
+                "SUMMARY": "12 Rows dropped because image_urls was empty.",
+                "ERRORS": [],
+                "WARNINGS":[
+                    "image_urls was empty. Row 26 dropped.",
+                    "image_urls was empty. Row 71 dropped.",
+                    "image_urls was empty. Row 75 dropped.",
+                    "image_urls was empty. Row 76 dropped.",
+                    "image_urls was empty. Row 77 dropped.",
+                    "image_urls was empty. Row 78 dropped.",
+                    "image_urls was empty. Row 79 dropped.",
+                    "image_urls was empty. Row 80 dropped.",
+                    "image_urls was empty. Row 81 dropped.",
+                    "image_urls was empty. Row 82 dropped.",
+                    "image_urls was empty. Row 83 dropped.",
+                    "image_urls was empty. Row 84 dropped."
+                ]
+            },
+
+            {
+                "SUMMARY": "12 Rows dropped because transmission was empty.",
+                "ERRORS": [],
+                "WARNINGS": [
+                    "transmission was empty. Row 26 dropped.",
+                    "transmission was empty. Row 75 dropped.",
+                    "transmission was empty. Row 76 dropped.",
+                    "transmission was empty. Row 77 dropped.",
+                    "transmission was empty. Row 78 dropped.",
+                    "transmission was empty. Row 79 dropped.",
+                    "transmission was empty. Row 80 dropped.",
+                    "transmission was empty. Row 81 dropped.",
+                    "transmission was empty. Row 82 dropped.",
+                    "transmission was empty. Row 83 dropped.",
+                    "transmission was empty. Row 84 dropped.",
+                    "transmission was empty. Row 145 dropped."
+                ]
+            },
+
+            {
+                "SUMMARY": "10 Rows dropped because body_style was empty.",
+                "ERRORS": [],
+                "WARNINGS": [
+                    "body_style was empty. Row 75 dropped.",
+                    "body_style was empty. Row 76 dropped.",
+                    "body_style was empty. Row 77 dropped.",
+                    "body_style was empty. Row 78 dropped.",
+                    "body_style was empty. Row 79 dropped.",
+                    "body_style was empty. Row 80 dropped.",
+                    "body_style was empty. Row 81 dropped.",
+                    "body_style was empty. Row 82 dropped.",
+                    "body_style was empty. Row 83 dropped.",
+                    "body_style was empty. Row 84 dropped."
+                ]
+            },
+
+            {
+                "SUMMARY": "11 Rows dropped because drivetrain was empty.",
+                "ERRORS": [],
+                "WARNINGS": [
+                    "drivetrain was empty. Row 26 dropped.",
+                    "drivetrain was empty. Row 75 dropped.",
+                    "drivetrain was empty. Row 76 dropped.",
+                    "drivetrain was empty. Row 77 dropped.",
+                    "drivetrain was empty. Row 78 dropped.",
+                    "drivetrain was empty. Row 79 dropped.",
+                    "drivetrain was empty. Row 80 dropped.",
+                    "drivetrain was empty. Row 81 dropped.",
+                    "drivetrain was empty. Row 82 dropped.",
+                    "drivetrain was empty. Row 83 dropped.",
+                    "drivetrain was empty. Row 84 dropped."
+                ]
+            },
+
+            {
+                "SUMMARY": "10 Rows dropped because exterior_color was empty.",
+                "ERRORS": [],
+                "WARNINGS": [
+                    "exterior_color was empty. Row 26 dropped.",
+                    "exterior_color was empty. Row 76 dropped.",
+                    "exterior_color was empty. Row 77 dropped.",
+                    "exterior_color was empty. Row 78 dropped.",
+                    "exterior_color was empty. Row 79 dropped.",
+                    "exterior_color was empty. Row 80 dropped.",
+                    "exterior_color was empty. Row 81 dropped.",
+                    "exterior_color was empty. Row 82 dropped.",
+                    "exterior_color was empty. Row 83 dropped.",
+                    "exterior_color was empty. Row 84 dropped."
+                ]
+            },
+
+            {
+                "SUMMARY": "11 Rows dropped because fuel_type was empty.",
+                "ERRORS": [],
+                "WARNINGS": [
+                    "fuel_type was empty. Row 26 dropped.",
+                    "fuel_type was empty. Row 75 dropped.",
+                    "fuel_type was empty. Row 76 dropped.",
+                    "fuel_type was empty. Row 77 dropped.",
+                    "fuel_type was empty. Row 78 dropped.",
+                    "fuel_type was empty. Row 79 dropped.",
+                    "fuel_type was empty. Row 80 dropped.",
+                    "fuel_type was empty. Row 81 dropped.",
+                    "fuel_type was empty. Row 82 dropped.",
+                    "fuel_type was empty. Row 83 dropped.",
+                    "fuel_type was empty. Row 84 dropped."
+                ]
+            },
+
+            {
+                "SUMMARY": "11 Rows dropped because trim was empty.",
+                "ERRORS": [],
+                "WARNINGS": [
+                    "trim was empty. Row 26 dropped.",
+                    "trim was empty. Row 75 dropped.",
+                    "trim was empty. Row 76 dropped.",
+                    "trim was empty. Row 77 dropped.",
+                    "trim was empty. Row 78 dropped.",
+                    "trim was empty. Row 79 dropped.",
+                    "trim was empty. Row 80 dropped.",
+                    "trim was empty. Row 81 dropped.",
+                    "trim was empty. Row 82 dropped.",
+                    "trim was empty. Row 83 dropped.",
+                    "trim was empty. Row 84 dropped."
+                ]
+            },
+
+            {
+                "SUMMARY": "12 Rows dropped from transmission error.",
+                "ERRORS": [],
+                "WARNINGS": [
+                    "'' is not an accepted enumerable value. Row 26 dropped.",
+                    "'' is not an accepted enumerable value. Row 75 dropped.",
+                    "'' is not an accepted enumerable value. Row 76 dropped.",
+                    "'' is not an accepted enumerable value. Row 77 dropped.",
+                    "'' is not an accepted enumerable value. Row 78 dropped.",
+                    "'' is not an accepted enumerable value. Row 79 dropped.",
+                    "'' is not an accepted enumerable value. Row 80 dropped.",
+                    "'' is not an accepted enumerable value. Row 81 dropped.",
+                    "'' is not an accepted enumerable value. Row 82 dropped.",
+                    "'' is not an accepted enumerable value. Row 83 dropped.",
+                    "'' is not an accepted enumerable value. Row 84 dropped.",
+                    "'' is not an accepted enumerable value. Row 145 dropped."
+                    ]
+                },
+
+            {
+                "SUMMARY": "11 Rows droppped from body_style error.",
+                "ERRORS": [],
+                "WARNINGS": [
+                    "TK is not an accepted enumerable value. Row 26 dropped.",
+                    "'' is not an accepted enumerable value. Row 75 dropped.",
+                    "'' is not an accepted enumerable value. Row 76 dropped.",
+                    "'' is not an accepted enumerable value. Row 77 dropped.",
+                    "'' is not an accepted enumerable value. Row 78 dropped.",
+                    "'' is not an accepted enumerable value. Row 79 dropped.",
+                    "'' is not an accepted enumerable value. Row 80 dropped.",
+                    "'' is not an accepted enumerable value. Row 81 dropped.",
+                    "'' is not an accepted enumerable value. Row 82 dropped.",
+                    "'' is not an accepted enumerable value. Row 83 dropped.",
+                    "'' is not an accepted enumerable value. Row 84 dropped."
+                ]
+            },
+
+            {
+                "SUMMARY": "11 Rows dropped from drivetrain error.",
+                "ERRORS": [],
+                "WARNINGS": [
+                    "'' is not an accepted enumerable value. Row 26 dropped.",
+                    "'' is not an accepted enumerable value. Row 75 dropped.",
+                    "'' is not an accepted enumerable value. Row 76 dropped.",
+                    "'' is not an accepted enumerable value. Row 77 dropped.",
+                    "'' is not an accepted enumerable value. Row 78 dropped.",
+                    "'' is not an accepted enumerable value. Row 79 dropped.",
+                    "'' is not an accepted enumerable value. Row 80 dropped.",
+                    "'' is not an accepted enumerable value. Row 81 dropped.",
+                    "'' is not an accepted enumerable value. Row 82 dropped.",
+                    "'' is not an accepted enumerable value. Row 83 dropped.",
+                    "'' is not an accepted enumerable value. Row 84 dropped."
+                ]
+            },
+
+            {
+                "SUMMARY": "11 Rows dropped from fuel_type.",
+                "ERRORS": [],
+                "WARNINGS": [
+                    "'' is not an accepted enumerable value. Row 26 dropped.",
+                    "'' is not an accepted enumerable value. Row 75 dropped.",
+                    "'' is not an accepted enumerable value. Row 76 dropped.",
+                    "'' is not an accepted enumerable value. Row 77 dropped.",
+                    "'' is not an accepted enumerable value. Row 78 dropped.",
+                    "'' is not an accepted enumerable value. Row 79 dropped.",
+                    "'' is not an accepted enumerable value. Row 80 dropped.",
+                    "'' is not an accepted enumerable value. Row 81 dropped.",
+                    "'' is not an accepted enumerable value. Row 82 dropped.",
+                    "'' is not an accepted enumerable value. Row 83 dropped.",
+                    "'' is not an accepted enumerable value. Row 84 dropped."
+                ]
+            },
+
+            {
+                "SUMMARY": "12 Rows dropped from price.",
+                "ERRORS": [],
+                "WARNINGS": [
+                    "USD 0 price is 0. Row 75 dropped.",
+                    "USD 0 price is 0. Row 76 dropped.",
+                    "USD 0 price is 0. Row 77 dropped.",
+                    "USD 0 price is 0. Row 78 dropped.",
+                    "USD 0 price is 0. Row 79 dropped.",
+                    "USD 0 price is 0. Row 80 dropped.",
+                    "USD 0 price is 0. Row 81 dropped.",
+                    "USD 0 price is 0. Row 82 dropped.",
+                    "USD 0 price is 0. Row 83 dropped.",
+                    "USD 0 price is 0. Row 84 dropped." ,
+                    "USD 0 price is 0. Row 173 dropped.",
+                    "USD 0 price is 0. Row 176 dropped."
+                ]
+            },
+
+            {
+                "SUMMARY": "12 Rows dropped from sale_price.",
+                "ERRORS": [],
+                "WARNINGS": [
+                    "USD 0 price is 0. Row 75 dropped.",
+                    "USD 0 price is 0. Row 76 dropped.",
+                    "USD 0 price is 0. Row 77 dropped.",
+                    "USD 0 price is 0. Row 78 dropped.",
+                    "USD 0 price is 0. Row 79 dropped.",
+                    "USD 0 price is 0. Row 80 dropped.",
+                    "USD 0 price is 0. Row 81 dropped.",
+                    "USD 0 price is 0. Row 82 dropped.",
+                    "USD 0 price is 0. Row 83 dropped.",
+                    "USD 0 price is 0. Row 84 dropped.",
+                    "USD 0 price is 0. Row 173 dropped.",
+                    "USD 0 price is 0. Row 176 dropped."
+                ]
+            },
+
+            {
+                "SUMMARY": "25 Rows dropped from image_urls.",
+                "ERRORS": "",
+                "WARNINGS": [
+                    "'' only one image in url, possible error splitting the array. Row 26 dropped.",
+                    "'https:\/\/content.homenetiol.com\/2001950\/2157332\/0x0\/stock_images\/8\/cc_2022KIS01_01_640\/cc_2022KIS010004_01_640_BU2.jpg' only one image in url, possible error splitting the array. Row 59 dropped.",
+                    "'https:\/\/content.homenetiol.com\/2001950\/2157332\/0x0\/stock_images\/8\/cc_2022KIC19_01_640\/cc_2022KIC190007_01_640_SWP.jpg' only one image in url, possible error splitting the array. Row 60 dropped.",
+                    "'https:\/\/content.homenetiol.com\/2001950\/2157332\/0x0\/stock_images\/8\/cc_2022KIS01_01_640\/cc_2022KIS010004_01_640_BU2.jpg' only one image in url, possible error splitting the array. Row 61 dropped.",
+                    "'https:\/\/content.homenetiol.com\/2001950\/2157332\/0x0\/stock_images\/8\/cc_2021KIC11_01_640\/cc_2021KIC110111_01_640_ABP.jpg' only one image in url, possible error splitting the array. Row 62 dropped.",
+                    "'https:\/\/content.homenetiol.com\/2001950\/2157332\/0x0\/stock_images\/8\/cc_2019KIS01_01_640\/cc_2019KIS010045_01_640_A3R.jpg' only one image in url, possible error splitting the array. Row 63 dropped.",
+                    "'https:\/\/content.homenetiol.com\/2001950\/2157332\/0x0\/stock_images\/8\/cc_2022KIS01_01_640\/cc_2022KIS010014_01_640_KCS.jpg' only one image in url, possible error splitting the array. Row 64 dropped.",
+                    "'https:\/\/content.homenetiol.com\/2001950\/2157332\/0x0\/stock_images\/8\/cc_2022KIS01_01_640\/cc_2022KIS010003_01_640_A3R.jpg' only one image in url, possible error splitting the array. Row 65 dropped.",
+                    "'' only one image in url, possible error splitting the array. Row 71 dropped.",
+                    "'https:\/\/content.homenetiol.com\/2001950\/2157332\/0x0\/stock_images\/5\/2022KIC19_640\/2022KIC190001_640_01.jpg' only one image in url, possible error splitting the array. Row 72 dropped.",
+                    "'https:\/\/content.homenetiol.com\/2001950\/2157332\/0x0\/stock_images\/5\/2022KIS01_640\/2022KIS010001_640_01.jpg' only one image in url, possible error splitting the array. Row 73 dropped.",
+                    "'https:\/\/content.homenetiol.com\/2001950\/2157332\/0x0\/stock_images\/8\/cc_2021KIS04_01_640\/cc_2021KIS040005_01_640_C3U.jpg' only one image in url, possible error splitting the array. Row 74 dropped.",
+                    "'' only one image in url, possible error splitting the array. Row 75 dropped.",
+                    "'' only one image in url, possible error splitting the array. Row 76 dropped.",
+                    "'' only one image in url, possible error splitting the array. Row 77 dropped.",
+                    "'' only one image in url, possible error splitting the array. Row 78 dropped.",
+                    "'' only one image in url, possible error splitting the array. Row 79 dropped.",
+                    "'' only one image in url, possible error splitting the array. Row 80 dropped.",
+                    "'' only one image in url, possible error splitting the array. Row 81 dropped.",
+                    "'' only one image in url, possible error splitting the array. Row 82 dropped.",
+                    "'' only one image in url, possible error splitting the array. Row 83 dropped.",
+                    "'' only one image in url, possible error splitting the array. Row 84 dropped.",
+                    "'https:\/\/content.homenetiol.com\/2001950\/2157332\/0x0\/stock_images\/8\/cc_2015CHE010a_01_640\/cc_2015CHE010a_01_640_G1M.jpg' only one image in url, possible error splitting the array. Row 173 dropped.",
+                    "'https:\/\/content.homenetiol.com\/2001950\/2157332\/0x0\/stock_images\/8\/cc_2019KIC05_01_640\/cc_2019KIC050012_01_640_EB.jpg' only one image in url, possible error splitting the array. Row 175 dropped.",
+                    "'https:\/\/content.homenetiol.com\/2001950\/2157332\/0x0\/stock_images\/8\/cc_2019KIS01_01_640\/cc_2019KIS010046_01_640_BU2.jpg' only one image in url, possible error splitting the array. Row 176 dropped."
+                ]
+            },
+
+            {
+                "SUMMARY": "12 Rows dropped from url.",
+                "ERRORS": [],
+                "WARNINGS": [
+                    "'\/' is not a valid url. Row 26 dropped.",
+                    "'' is not a valid url. Row 75 dropped.",
+                    "'' is not a valid url. Row 76 dropped.",
+                    "'' is not a valid url. Row 77 dropped.",
+                    "'' is not a valid url. Row 78 dropped.",
+                    "'' is not a valid url. Row 79 dropped.",
+                    "'' is not a valid url. Row 80 dropped.",
+                    "'' is not a valid url. Row 81 dropped.",
+                    "'' is not a valid url. Row 82 dropped.",
+                    "'' is not a valid url. Row 83 dropped.",
+                    "'' is not a valid url. Row 84 dropped.",
+                    "'' is not a valid url. Row 176 dropped."
+                ]
+            }
+        ]
+    }
+}

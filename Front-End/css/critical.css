@@ -1,0 +1,371 @@
+/*
+|---------------------------|
+|      Color Variables      |
+|---------------------------|
+    --lg_btn: #eeb023;
+    --lg_btn_txt: #333333;
+    --lg_btn_hvr: #eeb023;
+    --lg_btn_hvr_txt: #ffffff;
+    --sm_btn: #1b4176;
+    --sm_btn_txt: #1b4176;
+    --sm_btn_hvr: #1b4176;
+    --sm_btn_hvr_txt: #ffffff;
+*/
+
+/* ---- Comparisons Link List Drop Down ---- */
+
+.wmlp-comp-link-list-container {
+    position: relative;
+    margin-left: auto;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: end;
+    -webkit-justify-content: flex-end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+}
+
+.wmlp-compare-toggle {
+    display: none !important;
+}
+
+.wmlp-compare-btn {
+    display: block;
+    max-width: 200px;
+    text-align: center;
+    cursor: pointer;
+    padding: 5px 9px;
+    border-radius: 9px;
+    border-style: solid;
+    border-width: 1px;
+}
+
+label.wmlp-compare-btn {
+    margin-bottom: 0;
+}
+
+#wmlp_comp_arrow {
+    vertical-align: middle;
+}
+
+.wmlp-compare-toggle:checked ~ .wmlp-compare-links {
+    visibility: visible;
+    height: auto;
+    opacity: 1;
+}
+
+.wmlp-compare-links {
+    position: absolute;
+    width: calc( fit-content - 30px );
+    height: 0px;
+    z-index: 2;
+    padding: 0;
+    visibility: hidden;
+    opacity: 0;
+    list-style: none;
+    border-style: solid;
+    border-width: 1px;
+    top: 100%;
+    right: 15px;
+}
+
+.wmlp-compare-links > li {
+    padding: 6px 9px;
+}
+
+.wmlp-compare-links > li:not(:last-child) {
+    border-bottom: 1px solid #ccc;
+}
+
+.wmlp-thumb-comp-list ul > li {
+    font-size: 12px;
+}
+.wmlp-thumb-comp-list .wmlp-compare-links {
+    right: 0;
+}
+
+/* ---- Page Tabs ---- */
+
+.wmlp-tab-nav {
+    border-top: 1px dotted #ccc;
+    border-bottom: 1px dotted #ccc;
+    background-color: rgba(255,255,255,0.75);
+}
+
+.wmlp-tab-toggle, .wmlp-cta-toggle {
+    position: absolute;
+    z-index: -1;
+    bottom: 0;
+    right: 0;
+    display: none !important;
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.wmlp-btn-container {
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: fit-content;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-top: 9px;
+    margin-bottom: 9px;
+}
+
+label.wmlp-tab-btn {
+    margin-bottom: 0;
+}
+
+.wmlp-tab-btn {
+    padding: 6px 9px;
+    cursor: pointer;
+    text-align: center;
+}
+
+ul.wmlp-tabs {
+    list-style: none;
+    padding: 1rem 0;
+    margin: 0;
+}
+
+.wmlp-tab-content {
+    visibility: hidden;
+    overflow: hidden;
+    height: 0;
+    opacity: 0;
+}
+
+#overview:checked ~ .wmlp-tabs [data-selected~="overview"],
+#tab-0:checked ~ .wmlp-tabs [data-selected~="tab-0"],
+#tab-1:checked ~ .wmlp-tabs [data-selected~="tab-1"],
+#tab-2:checked ~ .wmlp-tabs [data-selected~="tab-2"],
+#tab-3:checked ~ .wmlp-tabs [data-selected~="tab-3"],
+#tab-4:checked ~ .wmlp-tabs [data-selected~="tab-4"],
+#tab-5:checked ~ .wmlp-tabs [data-selected~="tab-5"],
+#tab-6:checked ~ .wmlp-tabs [data-selected~="tab-6"] {
+    visibility: visible;
+    overflow: visible;
+    height: auto !important;
+    opacity: 1;
+}
+
+/* Used Vehicle Generations Navigation */
+
+.wmlp-gen-dd-list {
+    position: absolute;
+    min-width: fit-content;
+    top: 100%;
+    z-index: 2;
+    right: 15px;
+    left: 15px;
+    visibility: hidden;
+    height: 0px;
+    opacity: 0;
+    text-align: center;
+    border-style: solid;
+    border-width: 1px;
+}
+#wmlp_gen_btn .wmlp-tab-toggle:checked + .wmlp-gen-dd-list {
+    visibility: visible;
+    height: auto;
+    opacity: 1;
+}
+
+.wmlp_sm_cta_content {
+    height: 0px;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.wmlp-cta-toggle:checked + .wmlp_sm_cta_content {
+    height: auto;
+    opacity: 1;
+    visibility: visible;
+}
+
+.wmlp-year-link {
+    display: block;
+    padding: 6px;
+    cursor: pointer;
+}
+
+.wmlp-year-link:not(:last-child) {
+    border-bottom: 1px solid #ccc;
+}
+
+/* ---- Buttons ---- */
+.wmlp-lg-btn {
+    display: block;
+    padding: 14px;
+    margin-bottom: 8px;
+    margin-top: 8px;
+    border-style: solid;
+    border-width: 1px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.wmlp-sm-btn {
+    display: block;
+    padding: 6px;
+    margin-bottom: 8px;
+    margin-top: 8px;
+    text-align: center;
+    cursor: pointer;
+}
+
+/* ---- Accordion Toggled Box ---- */
+
+.wmlp-dd-toggle, .wmlp-modal-toggle {
+    display: none !important;
+}
+
+.wmlp-dd-toggle:checked ~ .wmlp-dd-box {
+    visibility: visible;
+    height: auto;
+    opacity: 1;
+    padding: 2rem 0;
+}
+
+.wmlp-dd-box, .wmlp-modal-box {
+    visibility: hidden;
+    height: 0px;
+    opacity: 0;
+    padding: 0;
+}
+
+.wmlp-modal-box {
+    position: fixed;
+    background: rgba(255,255,255,0.9);
+    z-index: 2100;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.wmlp-modal-toggle:checked ~ .wmlp-modal-box{
+    visibility: visible;
+    opacity: 1;
+}
+
+.wmlp-modal-content {
+    position: relative;
+}
+
+.wmlp-close-container {
+    font-size: 1.5rem;
+    text-align: right;
+    width:100%;
+    padding-top: 6%;
+}
+
+.wmlp-close-modal {
+    cursor: pointer;
+    color: #FFF;
+    font-size: 36px;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+}
+
+.wmlp-close-modal:hover {
+    color: #eee;
+    text-shadow: 0px 0px 4px rgba(0,0,0,0.95);
+}
+
+.wmlp-contact-container {
+    padding: 15px;
+    margin-bottom: 15%;
+    border-radius: 9px;
+    border-style: solid;
+    border-width: 1px;
+}
+
+#wmlp_vs_col {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    font-size: 8vmax;
+}
+
+/* Comparison Specs */
+table#wmlp_comp_specs, table#wmlp_comp_icon_specs {
+    border: none;
+}
+
+#wmlp_comp_specs, #wmlp_comp_specs tbody, #wmlp_comp_icon_specs tbody {
+    display: block;
+    position: relative;
+}
+
+#wmlp_comp_icon_specs tbody {
+    font-size: 80%;
+    font-weight: 400;
+}
+
+#wmlp_comp_specs tr, #wmlp_comp_icon_specs tr {
+    border-bottom: 1px solid #ccc;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+#wmlp_comp_specs tr:last-child, #wmlp_comp_icon_specs tr:last-child {
+    border-bottom: none;
+}
+
+#wmlp_comp_specs td, #wmlp_comp_icon_specs td {
+    border: none;
+    text-align: center !important;
+}
+
+.wmlp-disclaimer {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    color: #888;
+    font-size: 80%;
+    font-style: italic;
+    text-align: center;
+}

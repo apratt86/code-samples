@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Wikimotive Facebook Inventory Processing</title>
+        <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.ico') }}">
+        <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='vendors/jquery-3.6.0.min.js') }}"></script>
+        <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+        <!-- Font Awesome -->
+        <link href="{{ url_for('static', filename='/fontawesome/css/all.css') }}" rel="stylesheet">
+        <script src="{{ url_for('static', filename='/fontawesome/js/all.js') }}"></script>
+    </head>
+
+    <body class="bg-dark-gray">
+        {% include '/site_template/navbar.html' %}
+        <div id="wrapper" class="container-fluid">
+            {% include '/site_template/sidebar.html' %}
+            <main id="content">
+                <div class="row align-items-center">
+

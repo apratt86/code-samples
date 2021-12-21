@@ -1,0 +1,104 @@
+/*
+|---------------------------|
+|      Color Variables      |
+|---------------------------|
+    --lg_btn: #eeb023;
+    --lg_btn_txt: #333333;
+    --lg_btn_hvr: #eeb023;
+    --lg_btn_hvr_txt: #ffffff;
+    --sm_btn: #1b4176;
+    --sm_btn_txt: #1b4176;
+    --sm_btn_hvr: #1b4176;
+    --sm_btn_hvr_txt: #ffffff;
+*/
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+.wmlp-hero {
+    margin: 20px 0;
+}
+
+#wmlp_specs {
+    border-top-style: dotted;
+    border-top-width: 1px;
+    border-bottom-style: dotted;
+    border-bottom-width: 1px;
+    border-color: #ccc;
+}
+
+.wmlp-nav-border {
+    border-top-style: dotted;
+    border-top-width: 1px;
+    border-top-color: #ccc;
+}
+
+.wmlp-msrp {
+    font-size: 4rem;
+}
+
+#model_footer {
+    padding: 1rem 0 2rem 0;
+}
+
+/* --- Buttons --- */
+
+.wmlp-lg-btn {
+    border-radius: 9px;
+    font-weight: 700!important;
+    font-size: 1.2em;
+}
+
+.wmlp-sm-btn, .wmlp-tab-btn, .wmlp-compare-btn, .wmlp-compare-links {
+    border-radius: 6px;
+    font-weight: 700!important;
+    font-size: 0.9em;
+}
+
+.wmlp-current {
+    opacity: 0.5;
+}
+
+#wmlp_comp_specs tbody, #wmlp_comp_icon_specs tbody {
+    padding: 1rem 0;
+}
+
+.wmlp-spec-name {
+    font-weight: bold;
+}
+
+.wmlp-gen-dd-list{
+    border-radius: 6px;
+}
+
+/* --- Archive Page Template --- */
+
+.wmlp-vs {
+    vertical-align: middle;
+    margin: 0;
+}
+
+#wmlp_comparison_title > a {
+    font-size: 80%;
+}
+
+[id^="wmlp_model_row_"]:not(:last-child) {
+    border-bottom: 1px solid rgba( 0,0,0,.125 );
+}
+
+@supports ((position: -webkit-sticky) or (position: sticky)) {
+    @media (min-width: 992px) {
+        .wmlp-sticky-top {
+            position: -webkit-sticky;
+            position: sticky;
+            z-index: 990;
+        }
+        .wmlp-sticky-model-image {
+            position: -webkit-sticky;
+            position: sticky;
+            z-index: 980;
+        }
+    }
+}

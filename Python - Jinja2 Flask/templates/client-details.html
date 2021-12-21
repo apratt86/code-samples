@@ -1,0 +1,137 @@
+{% include '/site_template/header.html' %}
+
+{% include '/site_template/errors.html' %}
+
+<section class="container-fluid bg-gray rounded border border-dark py-4 mb-4">
+    <div id="client_details">
+        <h1 class="text-primary">{% if slug %}Updating {{ client_details.name }}{% else %}Add{% endif %} Client Details</h1>
+        <form method="post">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="name" class="form-label text-light">Client Name</label>
+                        <input type="text" id="name" name="name" class="form-control bg-dark text-light" placeholder="Client Name" value="{{ client_details.name }}" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="domain" class="form-label text-light">Client Domain</label>
+                        <input type="text" id="domain" name="domain" class="form-control bg-dark text-light" placeholder="example.com" value="{{ client_details.domain }}" />
+                    </div>
+                    <div class="form-check form-switch mb-3">
+                        {% set validate_urls_checked = '' %}
+                        {% if client_details.use_url_validation %}
+                            {% set validate_urls_checked = ' checked' %}
+                        {% endif %}
+                        <input class="form-check-input" type="checkbox" value="{{ client_details.use_url_validation }}" id="validate_urls" name="validate_urls"{{ validate_urls_checked }} />
+                        <label class="form-check-label text-light" for="validate_urls">URL Validation</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="feed_file" class="form-label text-light">Select a Feed File</label>
+                    <div id="field_select_fields_group">
+                        {% if slug %}
+                            {% for selected_file in client_details.inventory_feed_files %}
+                            <div id="file_select_field" data-file_select_set_no="1" class="mb-3 input-group">
+                                <select id="inventory_source" name="inventory_source" class="form-select bg-dark text-light">
+                                        <option value="">Select file name...</option>
+                                    {% for file in files %}
+                                        {% if selected_file == file %}
+                                        <option value="{{ file }}" selected>{{ file }}</option>
+                                        {% else %}
+                                        <option value="{{ file }}">{{ file }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                                <button class="btn btn-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#csv_sample_set" aria-controls="csv_sample_set">View a Sample of This File</button>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                        <div id="file_select_field" data-file_select_set_no="1" class="mb-3 input-group">
+                            <select id="inventory_source" name="inventory_source" class="form-select bg-dark text-light">
+                                    <option value="">Select file name...</option>
+                                {% for file in files %}
+                                    <option value="{{ file }}">{{ file }}</option>
+                                {% endfor %}
+                            </select>
+                            <button class="btn btn-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#csv_sample_set" aria-controls="csv_sample_set">View a Sample of This File</button>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        <button id="add_new_feed_file" type="button" class="btn btn-secondary">+ Add File to Feed</button>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary btn-lg text-dark px-5">Save{% if not slug %} and Continue{% endif %}</button>
+                </div>
+            </div>
+        </form>
+</section>
+
+<div class="offcanvas offcanvas-bottom bg-dark pb-5 h-auto" tabindex="-1" id="csv_sample_set" aria-labelledby="csv_sample_set_label">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title text-light" id="csv_sample_set_label"><span id="sample_file_name"></span> Sample Data Set</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body small">
+    <div id="csv_display" class="table-responsive">
+        <table class="table table-bordered table-hover table-dark table-striped table-sm">
+            <!-- TODO: Change file_data variable name to csv_data -->
+        {% for row in file_data %}
+            {% if loop.index == 1 %}
+            <thead class="text-center text-primary">
+                <tr>
+                {% for header in row %}
+                    <th scope="col" class="fit">{{ header }}</th>
+                {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+            {% elif loop.index > 1 and loop.index <= 6 %}
+                <tr>
+                    {% for column in row %}
+                    {% if column|length > 200 %}
+                    <td class="fit">{{ column | truncate(200, True) }}</td>
+                    {% else %}
+                    <td>{{ column }}</td>
+                    {% endif %}
+                    {% endfor %}
+                </tr>
+            {% endif %}
+        {% endfor %}
+            </tbody>
+        </table>
+    </div>
+  </div>
+</div>
+
+<script type="application/javascript">
+    ( function($) {
+
+        'use strict';
+
+        var add_feed_file_button;
+        var file_select_group;
+        var file_select_group_container;
+
+        function client_details_init() {
+            add_feed_file_button = document.getElementById( 'add_new_feed_file' );
+            file_select_group = document.getElementById( 'file_select_field' );
+            file_select_group_container = document.getElementById( 'field_select_fields_group' );
+        }
+
+        function add_new_feed_file_group_handler() {
+            add_feed_file_button.addEventListener( 'click', function() {
+                var cloned_file_select_group = $( file_select_group ).clone();
+                $( file_select_group_container ).append( cloned_file_select_group );
+            } );
+        }
+
+        window.addEventListener( 'load', client_details_init );
+        client_details_init();
+
+        window.addEventListener( 'load', add_new_feed_file_group_handler );
+
+    } )( jQuery );
+</script>
+
+{% include '/site_template/footer.html' %}

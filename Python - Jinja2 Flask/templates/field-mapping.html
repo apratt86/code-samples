@@ -1,0 +1,281 @@
+{% include '/site_template/header.html' %}
+
+<section class="container-fluid bg-gray rounded border border-dark py-4">
+    <h1 class="text-primary">{% if slug %}Updating {{ client_details.name }}{% else %}Add{% endif %} Field Mapping</h1>
+    <div id="field_mapping">
+        <form method="post">
+            <div class="row">
+                <div class="col-lg-4">
+                    <h3 class="text-light pb-1 mb-3 border-bottom border-light">Standard Fields</h3>
+                </div>
+                <div class="col-lg-8">
+                    <h3 class="text-light pb-1 mb-3 border-bottom border-light">Sample Data</h3>
+                </div>
+            </div>
+            {% for field in wikifields %}
+            <div id="field-group" class="row">
+                <div class="col-lg-4 mb-2">
+                    <div class="input-group">
+                        <label class="input-group-text bg-black text-primary field-group-label-fixed-width" for="{{ field }}">{{ field | upper }}</label>
+                        <select class="form-select bg-dark text-light" name="{{field}}" id="{{ field }}" data-sample_target="{{ field }}__sample">
+                            {% if current_field_mapping_dict[field] %}
+                                <option value="{{current_field_mapping_dict[field]}}" data-position="{{ loop.index }}">{{current_field_mapping_dict[field]}}</option>
+                            {% else %}
+                                <option value="">Select a field to map...</option>
+                            {% endif %}
+                            {% for col_header in csv_header %}
+                                <option value="{{ col_header }}" data-position="{{ loop.index }}">{{ col_header }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-8 mb-3">
+                    <input type="text" id="{{ field }}__sample" class="form-control bg-dark text-primary" placeholder="Example..." readonly disabled />
+                </div>
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+</section>
+
+<script type="text/javascript">
+    (function( $ ) {
+        'use strict';
+
+        // Defined in the mapping_init() function
+        var csv_json;
+        var standard_fields;
+
+        /** Initiate the variables on page load */
+        function mapping_init() {
+            // TODO: Replace this static variable of the inventory CSV data with dynamic values
+            csv_json = [
+                {
+                    "address.addr1" : "4950 New Car Dr",
+                    "address.city" : "Colorado Springs",
+                    "address.region" : "CO",
+                    "address.country" : "US",
+                    "body_style" : "SUV",
+                    "trim" : "",
+                    "description" : "   **TRAILER TOW GROUP**, *AIR CONDITIONING*, *APPLE CARPLAY/GOOGLE ANDROID AUTO CAPABLE*, *BACK UP CAMERA*, *HARD TOP*, *HD ELECTRICAL GROUP*, *KEYLESS ENTRY*, *MEDIA HUB (USB, AUX)*, *POWER WINDOWS*, *SIRIUS XM*, *STEERING WHEEL MOUNTED AUDIO CONTROLS*, *TOUCH SCREEN DISPLAY*, *UNIVERSAL GARAGE DOOR OPENER*. $1,830 off MSRP!Thank you for choosing The Faricy Boys Chrysler Jeep, home of the Real Deal! The Real deal means we will match any Colorado dealer\u0027s advertised price on an in stock vehicle. (Excludes vehicles damaged in dealer inventory regardless of repair status. Prices quoted with manufacturer\u0027s rebate are subject to customer qualification for those rebates). We strive to be transparent in our new vehicle pricing so we only advertise rebates available to the general public. If you qualify for additional manufacturer\u0027s rebate we will gladly deduct those from our advertised price.Awards:  * ALG Residual Value AwardsReviews:  * Expected off-road strengths; new engine choices. Source: Edmunds",
+                    "url" : "https://www.faricy.com/inventory/2018-jeep-wrangler-rubicon-4x4-sport-utility-1c4hjxcg6jw256613",
+                    "drivetrain" : "4WD",
+                    "exterior_color" : "Punkn Metallic Clearcoat",
+                    "image[0].url" : "http://vehicle-photos-published.vauto.com/5a/47/f7/62-eccd-4108-b928-d5936d80cbb6/image-1.jpg|http://vehicle-photos-published.vauto.com/5a/47/f7/62-eccd-4108-b928-d5936d80cbb6/image-2.jpg|http://vehicle-photos-published.vauto.com/5a/47/f7/62-eccd-4108-b928-d5936d80cbb6/image-3.jpg|http://vehicle-photos-published.vauto.com/5a/47/f7/62-eccd-4108-b928-d5936d80cbb6/image-4.jpg|http://vehicle-photos-published.vauto.com/5a/47/f7/62-eccd-4108-b928-d5936d80cbb6/image-5.jpg|http://vehicle-photos-published.vauto.com/5a/47/f7/62-eccd-4108-b928-d5936d80cbb6/image-6.jpg|http://vehicle-photos-published.vauto.com/5a/47/f7/62-eccd-4108-b928-d5936d80cbb6/image-7.jpg|http://vehicle-photos-published.vauto.com/5a/47/f7/62-eccd-4108-b928-d5936d80cbb6/image-8.jpg|http://vehicle-photos-published.vauto.com/5a/47/f7/62-eccd-4108-b928-d5936d80cbb6/image-9.jpg|http://vehicle-photos-published.vauto.com/5a/47/f7/62-eccd-4108-b928-d5936d80cbb6/image-10.jpg|http://vehicle-photos-published.vauto.com/5a/47/f7/62-eccd-4108-b928-d5936d80cbb6/image-11.jpg|http://vehicle-photos-published.vauto.com/5a/47/f7/62-eccd-4108-b928-d5936d80cbb6/image-12.jpg|http://vehicle-photos-published.vauto.com/5a/47/f7/62-eccd-4108-b928-d5936d80cbb6/image-13.jpg|http://vehicle-photos-published.vauto.com/5a/47/f7/62-eccd-4108-b928-d5936d80cbb6/image-14.jpg|http://vehicle-photos-published.vauto.com/5a/47/f7/62-eccd-4108-b928-d5936d80cbb6/image-15.jpg|http://vehicle-photos-published.vauto.com/5a/47/f7/62-eccd-4108-b928-d5936d80cbb6/image-16.jpg",
+                    "image[0].tag[0]" : "",
+                    "fuel_type" : "Gasoline",
+                    "sale_price" : "USD39995",
+                    "make" : "Jeep",
+                    "mileage.value" : "",
+                    "mileage.unit" : "",
+                    "model" : "Wrangler",
+                    "price" : "USD41825",
+                    "transmission" : "Manual",
+                    "state_of_vehicle" : "new",
+                    "condition" : "Excellent",
+                    "vehicle_id" : "JW256613",
+                    "vin" : "1C4HJXCG6JW256613",
+                    "year" : "2018",
+                    "title" : "2018 Jeep Wrangler Rubicon",
+                    "availability" : "AVAILABLE",
+                    "latitude" : "38.9385",
+                    "longitude" : "104.7362",
+                    "Dealer Postal Code" : "80923",
+                    "Dealer ID" : ""
+                },
+                {
+                    "address.addr1" : "4950 New Car Dr",
+                    "address.city" : "Colorado Springs",
+                    "address.region" : "CO",
+                    "address.country" : "US",
+                    "body_style" : "SUV",
+                    "trim" : "",
+                    "description" : "Price includes delivery and handling fee as well as the following rebates: $3,000 - 2019 Retail Consumer Cash **CK1. Exp. 10/01/2018   **8.4 INCH TOUCH SCREEN DISPLAY**, *9-SPEED AUTOMATIC TRANSMISSION*, *AIR CONDITIONING*, *APPLE CARPLAY / GOOGLE ANDROID AUTO CAPABLE*, *BACK UP CAMERA*, *BLIND SPOT CROSSPATH DETECTION*, *HEATED SEATS*, *HEATED STEERING WHEEL*, *KEYLESS START*, *POWER LIFTGATE*, *REMOTE START*, *SIRIUS XM*. $5,275 off MSRP!Thank you for choosing The Faricy Boys Chrysler Jeep, home of the Real Deal! The Real deal means we will match any Colorado dealer\u0027s advertised price on an in stock vehicle. (Excludes vehicles damaged in dealer inventory regardless of repair status. Prices quoted with manufacturer\u0027s rebate are subject to customer qualification for those rebates). We strive to be transparent in our new vehicle pricing so we only advertise rebates available to the general public. If you qualify for additional manufacturer\u0027s rebate we will gladly deduct those from our advertised price.",
+                    "url" : "https://www.faricy.com/inventory/2019-jeep-cherokee-limited-4x4-sport-utility-1c4pjmdn9kd235453",
+                    "drivetrain" : "4WD",
+                    "exterior_color" : "Diamond Black",
+                    "image[0].url" : "http://vehicle-photos-published.vauto.com/40/c7/4c/e0-2801-4d1d-a36a-61fd59098e41/image-1.jpg|http://vehicle-photos-published.vauto.com/40/c7/4c/e0-2801-4d1d-a36a-61fd59098e41/image-2.jpg|http://vehicle-photos-published.vauto.com/40/c7/4c/e0-2801-4d1d-a36a-61fd59098e41/image-3.jpg|http://vehicle-photos-published.vauto.com/40/c7/4c/e0-2801-4d1d-a36a-61fd59098e41/image-4.jpg|http://vehicle-photos-published.vauto.com/40/c7/4c/e0-2801-4d1d-a36a-61fd59098e41/image-5.jpg|http://vehicle-photos-published.vauto.com/40/c7/4c/e0-2801-4d1d-a36a-61fd59098e41/image-6.jpg|http://vehicle-photos-published.vauto.com/40/c7/4c/e0-2801-4d1d-a36a-61fd59098e41/image-7.jpg|http://vehicle-photos-published.vauto.com/40/c7/4c/e0-2801-4d1d-a36a-61fd59098e41/image-8.jpg|http://vehicle-photos-published.vauto.com/40/c7/4c/e0-2801-4d1d-a36a-61fd59098e41/image-9.jpg|http://vehicle-photos-published.vauto.com/40/c7/4c/e0-2801-4d1d-a36a-61fd59098e41/image-10.jpg|http://vehicle-photos-published.vauto.com/40/c7/4c/e0-2801-4d1d-a36a-61fd59098e41/image-11.jpg|http://vehicle-photos-published.vauto.com/40/c7/4c/e0-2801-4d1d-a36a-61fd59098e41/image-12.jpg|http://vehicle-photos-published.vauto.com/40/c7/4c/e0-2801-4d1d-a36a-61fd59098e41/image-13.jpg|http://vehicle-photos-published.vauto.com/40/c7/4c/e0-2801-4d1d-a36a-61fd59098e41/image-14.jpg|http://vehicle-photos-published.vauto.com/40/c7/4c/e0-2801-4d1d-a36a-61fd59098e41/image-15.jpg|http://vehicle-photos-published.vauto.com/40/c7/4c/e0-2801-4d1d-a36a-61fd59098e41/image-16.jpg|http://vehicle-photos-published.vauto.com/40/c7/4c/e0-2801-4d1d-a36a-61fd59098e41/image-17.jpg|http://vehicle-photos-published.vauto.com/40/c7/4c/e0-2801-4d1d-a36a-61fd59098e41/image-18.jpg",
+                    "image[0].tag[0]" : "",
+                    "fuel_type" : "Gasoline",
+                    "sale_price" : "USD31495",
+                    "make" : "Jeep",
+                    "mileage.value" : "3",
+                    "mileage.unit" : "MI",
+                    "model" : "Cherokee",
+                    "price" : "USD36770",
+                    "transmission" : "Manual",
+                    "state_of_vehicle" : "new",
+                    "condition" : "Excellent",
+                    "vehicle_id" : "KD235453",
+                    "vin" : "1C4PJMDN9KD235453",
+                    "year" : "2019",
+                    "title" : "2019 Jeep Cherokee Limited",
+                    "availability" : "AVAILABLE",
+                    "latitude" : "38.9385",
+                    "longitude" : "104.7362",
+                    "Dealer Postal Code" : "80923",
+                    "Dealer ID" : ""
+                },
+                {
+                    "address.addr1" : "4950 New Car Dr",
+                    "address.city" : "Colorado Springs",
+                    "address.region" : "CO",
+                    "address.country" : "US",
+                    "body_style" : "SUV",
+                    "trim" : "",
+                    "description" : "Price includes delivery and handling fee as well as the following rebates: $2,000 - 2018 DE Retail Consumer Cash 74CJ1. Exp. 10/01/2018, $2,500 - 2018 Retail Bonus Cash DECJA1. Exp. 10/01/2018   $5,596 off MSRP!Thank you for choosing The Faricy Boys Chrysler Jeep, home of the Real Deal! The Real deal means we will match any Colorado dealer\u0027s advertised price on an in stock vehicle. (Excludes vehicles damaged in dealer inventory regardless of repair status. Prices quoted with manufacturer\u0027s rebate are subject to customer qualification for those rebates). We strive to be transparent in our new vehicle pricing so we only advertise rebates available to the general public. If you qualify for additional manufacturer\u0027s rebate we will gladly deduct those from our advertised price.",
+                    "url" : "https://www.faricy.com/inventory/2018-jeep-renegade-trailhawk-4x4-sport-utility-zaccjbcb8jph28941",
+                    "drivetrain" : "4WD",
+                    "exterior_color" : "Glacier Metallic",
+                    "image[0].url" : "http://vehicle-photos-published.vauto.com/f2/94/81/bf-ef68-4280-8c85-71511a85fd41/image-1.jpg|http://vehicle-photos-published.vauto.com/f2/94/81/bf-ef68-4280-8c85-71511a85fd41/image-2.jpg|http://vehicle-photos-published.vauto.com/f2/94/81/bf-ef68-4280-8c85-71511a85fd41/image-3.jpg|http://vehicle-photos-published.vauto.com/f2/94/81/bf-ef68-4280-8c85-71511a85fd41/image-4.jpg|http://vehicle-photos-published.vauto.com/f2/94/81/bf-ef68-4280-8c85-71511a85fd41/image-5.jpg|http://vehicle-photos-published.vauto.com/f2/94/81/bf-ef68-4280-8c85-71511a85fd41/image-6.jpg|http://vehicle-photos-published.vauto.com/f2/94/81/bf-ef68-4280-8c85-71511a85fd41/image-7.jpg|http://vehicle-photos-published.vauto.com/f2/94/81/bf-ef68-4280-8c85-71511a85fd41/image-8.jpg|http://vehicle-photos-published.vauto.com/f2/94/81/bf-ef68-4280-8c85-71511a85fd41/image-9.jpg|http://vehicle-photos-published.vauto.com/f2/94/81/bf-ef68-4280-8c85-71511a85fd41/image-10.jpg|http://vehicle-photos-published.vauto.com/f2/94/81/bf-ef68-4280-8c85-71511a85fd41/image-11.jpg|http://vehicle-photos-published.vauto.com/f2/94/81/bf-ef68-4280-8c85-71511a85fd41/image-12.jpg|http://vehicle-photos-published.vauto.com/f2/94/81/bf-ef68-4280-8c85-71511a85fd41/image-13.jpg|http://vehicle-photos-published.vauto.com/f2/94/81/bf-ef68-4280-8c85-71511a85fd41/image-14.jpg",
+                    "image[0].tag[0]" : "",
+                    "fuel_type" : "Gasoline",
+                    "sale_price" : "USD23439",
+                    "make" : "Jeep",
+                    "mileage.value" : "7",
+                    "mileage.unit" : "MI",
+                    "model" : "Renegade",
+                    "price" : "USD29035",
+                    "transmission" : "Manual",
+                    "state_of_vehicle" : "new",
+                    "condition" : "Excellent",
+                    "vehicle_id" : "JPH28941",
+                    "vin" : "ZACCJBCB8JPH28941",
+                    "year" : "2018",
+                    "title" : "2018 Jeep Renegade Trailhawk",
+                    "availability" : "AVAILABLE",
+                    "latitude" : "38.9385",
+                    "longitude" : "104.7362",
+                    "Dealer Postal Code" : "80923",
+                    "Dealer ID" : ""
+                },
+                {
+                    "address.addr1" : "4950 New Car Dr",
+                    "address.city" : "Colorado Springs",
+                    "address.region" : "CO",
+                    "address.country" : "US",
+                    "body_style" : "SUV",
+                    "trim" : "",
+                    "description" : "Price includes delivery and handling fee as well as the following rebates: $3,000 - 2019 Retail Consumer Cash **CK1. Exp. 10/01/2018, $500 - Denver 2019 Bonus Cash DECKA. Exp. 10/01/2018   $5,192 off MSRP!Thank you for choosing The Faricy Boys Chrysler Jeep, home of the Real Deal! The Real deal means we will match any Colorado dealer\u0027s advertised price on an in stock vehicle. (Excludes vehicles damaged in dealer inventory regardless of repair status. Prices quoted with manufacturer\u0027s rebate are subject to customer qualification for those rebates). We strive to be transparent in our new vehicle pricing so we only advertise rebates available to the general public. If you qualify for additional manufacturer\u0027s rebate we will gladly deduct those from our advertised price.",
+                    "url" : "https://www.faricy.com/inventory/2019-jeep-cherokee-trailhawk-4x4-sport-utility-1c4pjmbn2kd182923",
+                    "drivetrain" : "4WD",
+                    "exterior_color" : "Billet Silver Metallic",
+                    "image[0].url" : "http://vehicle-photos-published.vauto.com/a5/88/e1/b6-9d85-4d4c-87c7-b1291c7726bf/image-1.jpg|http://vehicle-photos-published.vauto.com/a5/88/e1/b6-9d85-4d4c-87c7-b1291c7726bf/image-2.jpg|http://vehicle-photos-published.vauto.com/a5/88/e1/b6-9d85-4d4c-87c7-b1291c7726bf/image-3.jpg|http://vehicle-photos-published.vauto.com/a5/88/e1/b6-9d85-4d4c-87c7-b1291c7726bf/image-4.jpg|http://vehicle-photos-published.vauto.com/a5/88/e1/b6-9d85-4d4c-87c7-b1291c7726bf/image-5.jpg|http://vehicle-photos-published.vauto.com/a5/88/e1/b6-9d85-4d4c-87c7-b1291c7726bf/image-6.jpg|http://vehicle-photos-published.vauto.com/a5/88/e1/b6-9d85-4d4c-87c7-b1291c7726bf/image-7.jpg|http://vehicle-photos-published.vauto.com/a5/88/e1/b6-9d85-4d4c-87c7-b1291c7726bf/image-8.jpg|http://vehicle-photos-published.vauto.com/a5/88/e1/b6-9d85-4d4c-87c7-b1291c7726bf/image-9.jpg|http://vehicle-photos-published.vauto.com/a5/88/e1/b6-9d85-4d4c-87c7-b1291c7726bf/image-10.jpg|http://vehicle-photos-published.vauto.com/a5/88/e1/b6-9d85-4d4c-87c7-b1291c7726bf/image-11.jpg|http://vehicle-photos-published.vauto.com/a5/88/e1/b6-9d85-4d4c-87c7-b1291c7726bf/image-12.jpg",
+                    "image[0].tag[0]" : "",
+                    "fuel_type" : "Gasoline",
+                    "sale_price" : "USD32318",
+                    "make" : "Jeep",
+                    "mileage.value" : "3",
+                    "mileage.unit" : "MI",
+                    "model" : "Cherokee",
+                    "price" : "USD37510",
+                    "transmission" : "Manual",
+                    "state_of_vehicle" : "new",
+                    "condition" : "Excellent",
+                    "vehicle_id" : "KD182923",
+                    "vin" : "1C4PJMBN2KD182923",
+                    "year" : "2019",
+                    "title" : "2019 Jeep Cherokee Trailhawk",
+                    "availability" : "AVAILABLE",
+                    "latitude" : "38.9385",
+                    "longitude" : "104.7362",
+                    "Dealer Postal Code" : "80923",
+                    "Dealer ID" : ""
+                },
+                {
+                    "address.addr1" : "4950 New Car Dr",
+                    "address.city" : "Colorado Springs",
+                    "address.region" : "CO",
+                    "address.country" : "US",
+                    "body_style" : "SUV",
+                    "trim" : "",
+                    "description" : "   4WD. $8,120 off MSRP!Thank you for choosing The Faricy Boys Chrysler Jeep, home of the Real Deal! The Real deal means we will match any Colorado dealer\u0027s advertised price on an in stock vehicle. (Excludes vehicles damaged in dealer inventory regardless of repair status. Prices quoted with manufacturer\u0027s rebate are subject to customer qualification for those rebates). We strive to be transparent in our new vehicle pricing so we only advertise rebates available to the general public. If you qualify for additional manufacturer\u0027s rebate we will gladly deduct those from our advertised price.",
+                    "url" : "",
+                    "drivetrain" : "4WD",
+                    "exterior_color" : "Ivory 3-Coat",
+                    "image[0].url" : "http://vehicle-photos-published.vauto.com/bb/89/65/89-8637-44e2-add1-4598ab38c2ae/image-1.jpg|http://vehicle-photos-published.vauto.com/bb/89/65/89-8637-44e2-add1-4598ab38c2ae/image-2.jpg|http://vehicle-photos-published.vauto.com/bb/89/65/89-8637-44e2-add1-4598ab38c2ae/image-3.jpg|http://vehicle-photos-published.vauto.com/bb/89/65/89-8637-44e2-add1-4598ab38c2ae/image-4.jpg|http://vehicle-photos-published.vauto.com/bb/89/65/89-8637-44e2-add1-4598ab38c2ae/image-5.jpg|http://vehicle-photos-published.vauto.com/bb/89/65/89-8637-44e2-add1-4598ab38c2ae/image-6.jpg|http://vehicle-photos-published.vauto.com/bb/89/65/89-8637-44e2-add1-4598ab38c2ae/image-7.jpg|http://vehicle-photos-published.vauto.com/bb/89/65/89-8637-44e2-add1-4598ab38c2ae/image-8.jpg|http://vehicle-photos-published.vauto.com/bb/89/65/89-8637-44e2-add1-4598ab38c2ae/image-9.jpg|http://vehicle-photos-published.vauto.com/bb/89/65/89-8637-44e2-add1-4598ab38c2ae/image-10.jpg|http://vehicle-photos-published.vauto.com/bb/89/65/89-8637-44e2-add1-4598ab38c2ae/image-11.jpg|http://vehicle-photos-published.vauto.com/bb/89/65/89-8637-44e2-add1-4598ab38c2ae/image-12.jpg|http://vehicle-photos-published.vauto.com/bb/89/65/89-8637-44e2-add1-4598ab38c2ae/image-13.jpg|http://vehicle-photos-published.vauto.com/bb/89/65/89-8637-44e2-add1-4598ab38c2ae/image-14.jpg|http://vehicle-photos-published.vauto.com/bb/89/65/89-8637-44e2-add1-4598ab38c2ae/image-15.jpg|http://vehicle-photos-published.vauto.com/bb/89/65/89-8637-44e2-add1-4598ab38c2ae/image-16.jpg|http://vehicle-photos-published.vauto.com/bb/89/65/89-8637-44e2-add1-4598ab38c2ae/image-17.jpg|http://vehicle-photos-published.vauto.com/bb/89/65/89-8637-44e2-add1-4598ab38c2ae/image-18.jpg|http://vehicle-photos-published.vauto.com/bb/89/65/89-8637-44e2-add1-4598ab38c2ae/image-19.jpg|http://vehicle-photos-published.vauto.com/bb/89/65/89-8637-44e2-add1-4598ab38c2ae/image-20.jpg",
+                    "image[0].tag[0]" : "",
+                    "fuel_type" : "Gasoline",
+                    "sale_price" : "USD91995",
+                    "make" : "Jeep",
+                    "mileage.value" : "",
+                    "mileage.unit" : "",
+                    "model" : "Grand Cherokee",
+                    "price" : "USD100115",
+                    "transmission" : "Manual",
+                    "state_of_vehicle" : "new",
+                    "condition" : "Excellent",
+                    "vehicle_id" : "JC309060",
+                    "vin" : "AC4RJFN97JC309060",
+                    "year" : "2018",
+                    "title" : "2018 Jeep Grand Cherokee Trackhawk",
+                    "availability" : "AVAILABLE",
+                    "latitude" : "38.9385",
+                    "longitude" : "104.7362",
+                    "Dealer Postal Code" : "80923",
+                    "Dealer ID" : ""
+                }
+            ];
+
+            // Define the wikimotive standard fields DOM elements
+            standard_fields = document.querySelectorAll( 'select' );
+        }
+
+        /** Returns a sample data array */
+        function get_sample_data( field ) {
+            // Defines blank return array to push conditional elements to
+            var r = [];
+            // Loop through the csv_json array and push sample data if it matches the given field key and the value is not blank
+            for( var i = 0; i < csv_json.length; i++ ){
+                if ( (typeof csv_json[i][field] !== 'undefined') && (csv_json[i][field] !== '') ) {
+                    // Truncate long strings of sample data
+                    if ( csv_json[i][field].length > 100 ) {
+                        r.push( csv_json[i][field].substring(0, 100) + "..." );
+                    }
+                    else{
+                        r.push( csv_json[i][field] );
+                    }
+                }
+            }
+            // Return the array in a json string format
+            return JSON.stringify( r, null, " " );
+        }
+
+        /** For each of the field mapping groups, format and add sample CSV data to the disabled display field when the field value changes */
+        function update_sample_data_handler() {
+            // Loop through the wikimotive standard fields and add change event listener
+            for( var i = 0; i < standard_fields.length; i++ ){
+                standard_fields[i].addEventListener( 'change', function() {
+                    // Defines the outer field group row DOM element
+                    var field_group = this.parentNode.parentNode.parentNode;
+                    // Defines the sample data disabled field to push sample data to
+                    var sample_field = field_group.querySelector( "#" + this.dataset.sample_target );
+                    // Defines the sample data from the inventory csv json
+                    var sample_data = get_sample_data( this.value );
+
+                    // Set the sample data field value (If the data is blank sets field to a notification string)
+                    if ( sample_data.length <= 2 ) {
+                        // Change Sample Data Unavailable to something that is clearer, this seems like an error
+                        sample_field.value = "Sample Data Unavailable";
+                    }
+                    else {
+                        sample_field.value = sample_data;
+                    }
+                } );
+            }
+        }
+
+        /** Call the mapping_init() function on page load */
+        window.addEventListener( 'load', mapping_init );
+
+        /** Call the update_sample_data_handler() function on page load */
+        window.addEventListener( 'load', update_sample_data_handler );
+
+        /** Fallback: Call the mapping_init() function anyway */
+        mapping_init();
+
+    })( jQuery );
+</script>
+
+{% include '/site_template/footer.html' %}

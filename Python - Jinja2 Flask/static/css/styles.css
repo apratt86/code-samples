@@ -1,0 +1,66 @@
+body {
+    position: relative;
+    background-color: #110f10;
+    background-image:url('../images/background-01.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
+    background-attachment: fixed;
+}
+
+#wrapper {
+    min-height: 100% !important;
+}
+
+main#content {
+    padding: 6rem 3rem 6rem calc( 3rem + 28px);
+    overflow-y: auto;
+    height: 100%;
+}
+
+aside#sidebarMenu {
+    width: 244px !important;
+    background-color: #110f10 !important;
+}
+
+.bg-black {
+    background-color: #110f10 !important;
+}
+
+.bg-dark-gray {
+    background-color: #343434 !important;
+}
+
+.bg-gray {
+    background-color: rgba( 0,0,0,0.8 ) !important;
+    background-blend-mode: multiply;
+}
+
+.field-group-label-fixed-width {
+    width: 220px;
+}
+
+.table td.fit,
+.table th.fit {
+    white-space: nowrap;
+    width: 1%;
+}
+
+.form-border-none, .form-border-none:hover, .form-border-none:focus, .form-border-none:focus-within {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.fixed-left {
+    position: fixed;
+    z-index: 1050;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.btn-sidebar-open {
+    border: none;
+    background-color: #4d4f51;
+    height: 100%;
+}

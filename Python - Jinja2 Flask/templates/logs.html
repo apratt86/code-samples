@@ -1,0 +1,182 @@
+{% include '/site_template/header.html' %}
+<section class="container-fluid bg-gray rounded border border-dark py-4">
+    <h1 class="text-primary mb-4">Feed Logs</h1>
+    <div class="row">
+        <!-- Feed Selection List -->
+        <div id="active_feeds_list" class="col-md-4">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control bg-dark text-light" placeholder="Search feeds..." aria-label="client-search" aria-describedby="client-search" id="search" name="search">
+                <button class="input-group-text bg-primary"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="list-group list-group-flush" style="max-height: 400px; overflow-y: auto">
+            {% for client in clients %}
+            <!-- Change Highlight Color to Gray - Active color is primary -->
+                <button
+                    id="{{ client.slug }}"
+                    class="list-group-item list-group-item-action list-group-item-primary"
+                    data-client_id = "{{ client.slug }}"
+                    data-name="{{ client.name }}"
+                    data-inventory_source='{{ client.inventory_source | tojson }}'
+                    data-domain="{{ client.domain }}"
+                    data-validate_urls="{{ client.validate_urls }}"
+                    data-client_details_url="{{ url_for( 'update_client_details', slug=client.slug ) }}"
+                    data-field_mapping_url="{{ url_for( 'update_field_mapping', slug=client.slug ) }}"
+                    data-translations_url="{{ url_for( 'update_translations', slug=client.slug ) }}"
+                    data-process_feed_url="{{ url_for( 'run_process_feed', slug=client.slug ) }}">
+                    <div class="row">
+                        <div class="col-12 col-lg-8">
+                            {{ client.name }} &bull; {{ client.domain }}
+                        </div>
+                        <!-- ~ TODO: Log Warnings and Errors: To be placed dynamically -->
+                        <div id="log-count" class="col-12 col-lg-4 text-end">
+                            <span class="badge rounded-pill bg-danger mx-2">3</span>
+                            <span class="badge rounded-pill bg-warning text-dark mx-2">99</span>
+                        </div>
+                    </div>
+                </button>
+            {% endfor %}
+            </div>
+        </div>
+
+        <!-- Feed Selection Display -->
+        <div id="selected_log_data" class="col-md-8">
+            <div id="inner_row" class="row bg-dark rounded border border-light px-3 py-5 mx-0">
+                <!-- Client Info Display -->
+                <div id="client-info" class="col-12 text-light">
+                    <h3 id="name" class="text-primary">Feed Not Selected</h3>
+                    <div id="domain" class="mb-3">
+                        <h5 id="domain-label" class="text-light mb-0"></h5>
+                        <a href="#" class="text-light" target="_blank"></a>
+                    </div>
+                </div>
+
+                <!-- Log Messages -->
+                <div id="client-logs" class="col-12 d-none">
+                    <div class="accordion mb-3" id="log_process">
+                    <!-- accordion::start -->
+                    {% for log_key in log_data %}
+
+                    {% if 'logs' in log_key %}
+                        {% for log_row in log_data['logs'] %}
+                        {% set counter = loop.index0 %}
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="flush-heading-{{counter}}">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-{{counter}}" aria-expanded="false" aria-controls="flush-collapse-{{counter}}">
+                                        {{ log_row }}
+                                    </button>
+                                </h2>
+                                <div id="flush-collapse-{{counter}}" class="accordion-collapse collapse" aria-labelledby="flush-heading-{{counter}}" data-bs-parent="#log_process">
+                                    <div class="accordion-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <h4 class="text-danger">Errors</h4>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h4 class="text-warning">Warnings</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    {% endfor %}
+                    </div>
+                    <!-- accordion::end -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+    (function( $ ) {
+        'use strict';
+
+        // Defined in the search_init() function
+        var search;
+        var feeds;
+        var logs_container;
+
+        /** Initiate the global variables */
+        function search_init(){
+            // Defines the search bar DOM element
+            search = document.getElementById( 'search' );
+            // Defines the active feed (client list item) DOM element buttons
+            feeds = document.querySelectorAll( '#active_feeds_list button' );
+            // Defines the information display DOM element container
+            logs_container = document.getElementById( 'selected_log_data' );
+        }
+
+        /** Displays the active client feeds that match the search bar input text */
+        function search_active_feeds_handler() {
+            search.addEventListener( 'keyup', function(){
+                // Loop through the feed button DOM elements
+                for( var i = 0; i < feeds.length; i++ ){
+
+                    // Defines the client feed item's inner text to search
+                    var textStringToSearch = feeds[i].innerText.toLowerCase();
+                    // Defines the search term from the input value
+                    var searchTerm = this.value.toLowerCase();
+
+                    // If the client feed button text matches search term, display only those buttons
+                    if ( textStringToSearch.includes( searchTerm ) ) {
+                       feeds[i].classList.remove( 'd-none' );
+                    }
+                    // Hide all other buttons
+                    else {
+                        feeds[i].classList.add( 'd-none' );
+                    }
+                }
+            });
+        }
+
+        /** Displays the selected client feed info in the information container */
+        function display_client_info() {
+            for ( var i = 0; i < feeds.length; i++ ){
+                feeds[i].addEventListener( 'click', function() {
+                    // Remove active status of all other buttons
+                    // Set this button to active status
+                    for( var i = 0; i < feeds.length; i++ ){
+                        feeds[i].classList.remove('active');
+                    }
+                    this.classList.add('active');
+
+                    // Get the button's feed data
+                    var feed_data = this.dataset;
+
+                    // Set the client name display space
+                    var name_container = logs_container.querySelector( '#name' );
+                    name_container.innerText = feed_data.name;
+
+                    // Set the client domain display space
+                    var domain_label = logs_container.querySelector( '#domain-label' );
+                    var domain_link = logs_container.querySelector( '#domain > a' );
+                    domain_label.innerText = 'Domain:';
+                    domain_link.innerText = feed_data.domain;
+                    domain_link.href = feed_data.domain;
+
+                    // Display Log Data Accordion
+                    var log_display = logs_container.querySelector( '#client-logs' );
+                    log_display.classList.remove( 'd-none' );
+
+                });
+            }
+        }
+
+        // Call the search_init() function on page load
+        window.addEventListener( 'load', search_init );
+        // Fallback: Call the search_init() function anyway
+        search_init();
+
+        // Call the search_active_feeds_handler() function on page load
+        window.addEventListener( 'load', search_active_feeds_handler );
+        // Call the display_client_info() function on page load
+        window.addEventListener( 'load', display_client_info );
+
+    })( jQuery );
+</script>
+
+{% include '/site_template/footer.html' %}

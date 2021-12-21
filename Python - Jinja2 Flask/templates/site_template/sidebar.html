@@ -1,0 +1,34 @@
+<div class="position-relative">
+    <div class="fixed-left">
+        <button id="side-menu-toggle" class="btn-sidebar-open p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#side-menu" aria-controls="offcanvasScrolling">
+            <i class="fas fa-angle-right text-light fs-4"></i>
+        </button>
+    </div>
+    <div class="offcanvas offcanvas-start bg-dark" data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1" id="side-menu" aria-labelledby="side-menu-toggle">
+        <div class="offcanvas-body">
+            <div class="row align-items-stretch h-100">
+                <div class="col-10 h-100">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for( 'update_client_details' ) }}">Add New Feed</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for( 'active_feeds' ) }}">Active Feeds</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for( 'logs_view' ) }}">Process Logs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for( 'replacement_settings' ) }}">Replacement Settings</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-2 h-100">
+                    <div class="row h-100 justify-items-center align-items-center">
+                        <div class="btn text-reset" data-bs-dismiss="offcanvas"><i class="fas fa-angle-left text-light fs-4"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

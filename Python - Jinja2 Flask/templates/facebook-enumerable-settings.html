@@ -1,0 +1,224 @@
+{% include '/site_template/header.html' %}
+
+<section class="container-fluid bg-gray rounded border border-dark py-4">
+    <form action="" method="POST">
+        <button type="submit" id="submit" name="submit" class="btn btn-primary btn-lg float-end">Save Replacements</button>
+        <h1 class="text-primary mb-4">Replacement Settings</h1>
+        <!-- TAB NAV -->
+        <ul class="nav nav-tabs px-3 border-bottom-0" id="tab-nav" role="tablist">
+            {% for tab in enums %}
+                {% set tab_active = '' %}
+                {% set tab_status = 'false' %}
+                {% if loop.index == 1 %}
+                {% set tab_active = ' active' %}
+                {% set tab_status = 'true' %}
+                {% endif %}
+            <li class="nav-item" role="presentation">
+                <button
+                    class="nav-link{{ tab_active }} fw-bold mx-1"
+                    id="{{ tab }}-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#{{ tab }}"
+                    type="button"
+                    role="tab"
+                    aria-controls="{{ tab }}"
+                    aria-selected="{{ tab_status }}">
+                    {{ tab | upper }}
+                </button>
+            </li>
+            {% endfor %}
+        </ul>
+        <!-- TAB CONTENTS -->
+        <div class="tab-content px-4 bg-dark-gray border border-dark rounded" id="tab-content">
+            <!-- Create the Enum Fields -->
+            {% for field in enums %}
+                {% if loop.index == 1 %}
+                {% set content_active = ' show active' %}
+                {% endif %}
+            <div class="tab-pane pb-5 fade{{ content_active }}" data-field="{{ field }}" id="{{ field }}" role="tabpanel" aria-labelledby="{{ field }}-tab">
+                <div class="row pb-5">
+                    <!-- Create the Replacement fields for Enums -->
+                    {% for replacement in enums[field] %}
+                    <div class="col-md-6 p-5">
+                        <h3 class="text-primary">{{ replacement }}</h3>
+                        <div class="text-light h-100">
+                            <div class="input-group border border-light rounded-top">
+                                <input type="text" id="search-{{ replacement | replace(' ', '_') | lower }}" name="search-{{ replacement | replace(' ', '_') | lower }}" data-search_field="replacements_container-{{ replacement | replace(' ', '_') | lower }}" class="form-control bg-dark text-primary form-border-none" placeholder="Search replacement terms...">
+                                <div class="input-group-text bg-dark form-border-none"><i class="fas fa-search text-light"></i></div>
+                            </div>
+                            <!-- Terms Container::Start -->
+                            <div id="replacements_container-{{ replacement | replace(' ', '_') | lower }}" class="p-4 border border-top-0 border-bottom-0 border-light h-75 bg-dark overflow-auto">
+                                {% for term in enums[field][replacement] %}
+                                <div id="term">
+                                    <span id="term_name"> {{ term }}</span> <i id="remove_term" role="button" class="fas fa-minus-circle text-danger" onclick="remove_this_term_handler(this)"></i>
+                                </div>
+                                {% endfor %}
+                                <input type="hidden" id="{{ replacement | replace(' ', '_') | lower }}" name="{{ replacement | replace(' ', '_') | lower }}" value='{{ enums[field][replacement] | tojson }}' />
+                            </div>
+                            <!-- Terms Container::End -->
+                            <div class="input-group border border-light rounded-bottom">
+                                <input type="text" id="add-{{ replacement | replace(' ', '_') | lower }}" name="add-{{ replacement | replace(' ', '_') | lower }}" class="form-control form-border-none bg-dark text-light" placeholder="Add replacement term..." aria-describedby="{{ replacement | replace(' ', '_') | lower }}-add-replacement">
+                                <button id="add_new_term_submit" class="px-3 btn-primary text-dark form-border-none" type="button" data-term="{{ replacement | replace(' ', '_') | lower }}" data-add_to="replacements_container-{{ replacement | replace(' ', '_') | lower }}">+ Add Replacement Term</button>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </form>
+</section>
+
+<script type="text/javascript">
+    ( function( $ ) {
+        'use strict';
+
+        // Defined in the replacements_init() function
+        var search_bars;
+        var add_term_buttons;
+
+        /** Initialize the DOM variables */
+        function replacements_init(){
+
+            // Defines all the search fields
+            search_bars = document.querySelectorAll( '[id^="search"]' );
+
+            // Defines all the add replacement term buttons
+            add_term_buttons = document.querySelectorAll( '#add_new_term_submit' );
+        }
+
+        /** Search/Filter terms handler */
+        function search_replacement_terms_handler(){
+
+            // For each of the search bar, add keypress search event
+            for( var i = 0; i < search_bars.length; i++ ) {
+                search_bars[i].addEventListener( 'keyup', function(){
+                    // Defines all the term elements within this enum field set
+                    var current_term_blocks = document.querySelectorAll( "#" + this.dataset.search_field + " > #term" );
+
+                    // Loop through term elements
+                    for( var i = 0; i < current_term_blocks.length; i++ ){
+
+                        // Define the text string to search for in each term block
+                        var textStringToSearch = current_term_blocks[i].querySelector( '#term_name' ).innerText.toLowerCase();
+
+                        // Define the text string to search within for the given text string from the search input
+                        var searchTerm = this.value.toLowerCase();
+
+                        // If the feed button text matches search term, display only those terms
+                        if ( textStringToSearch.includes( searchTerm ) ) {
+                            current_term_blocks[i].classList.remove( 'd-none' );
+                        }
+                        // hide all other terms
+                        else {
+                            current_term_blocks[i].classList.add( 'd-none' );
+                        }
+
+                    }
+                });
+            }
+        }
+
+        /** Add a new replacement term: checks if the term is unique and adds it to the display terms and appends it to the hidden input value */
+        function add_new_replacement_term_handler() {
+            // Adds event listener for each add term button
+            for( var i = 0; i < add_term_buttons.length; i++ ){
+                add_term_buttons[i].addEventListener( 'click', function(){
+                    // Define the terms container DOM element to prepend new term to
+                    var add_to_container = document.getElementById( this.dataset.add_to );
+
+                    // Define the hidden input field DOM element containing the JSON Array String of current terms
+                    var replacements_input = add_to_container.querySelector( "input[type='hidden']" );
+                    // Parse the JSON Array String to a JSON Array object
+                    var replacement_values = JSON.parse( replacements_input.value );
+
+                    // Define the "+ Add Replacement Term" text field DOM element
+                    var add_term_input_field = this.parentNode.querySelector( "#add-" + this.dataset.term );
+                    // Define the "+ Add Replacement Term" text field string value
+                    var term_to_add = add_term_input_field.value;
+
+                    // Alert if term is blank
+                    if ( term_to_add === "" ) {
+                        alert( 'Term cannot be blank.' );
+                    }
+
+                    // Alert if the term already exists
+                    if ( replacement_values.includes( term_to_add ) == true ) {
+                        alert( term_to_add + ' already exists in this list.' );
+                    }
+
+                    // If the term is not blank and does not exist in the list, add the term
+                    if ( ( term_to_add !== "" ) && ( replacement_values.includes( term_to_add ) ) == false ){
+                        // Define the display term HTML to prepend
+                        var term_html =
+                        '<div id="term">'+
+                            '<span id="term_name">' + term_to_add + '</span> <i id="remove_term" role="button" class="fas fa-minus-circle text-danger" onclick="remove_term(this)"></i>'+
+                        '</div>';
+
+                        // Prepend the term to the display container
+                        $( add_to_container ).prepend( term_html );
+
+                        // Add the term to the replacement_values JSON array
+                        replacement_values.push( term_to_add );
+                        // Add the term to the hidden replacement input value as a JSON Array String
+                        replacements_input.value = JSON.stringify( replacement_values );
+
+                        // Reset the add term field to blank after appending the term
+                        add_term_input_field.value = '';
+                    }
+
+                } );
+            }
+        }
+
+        /** Initiate the variables on page load */
+        window.addEventListener( 'load', replacements_init );
+        /** Fallback: initiate the variables anyway */
+        replacements_init();
+
+        /** Call the search function on page load, adds event listeners for each search bar */
+        window.addEventListener( 'load', search_replacement_terms_handler );
+        /** Call the new replacement term handler on page load, handles adding new terms to each enum field set */
+        window.addEventListener( 'load', add_new_replacement_term_handler );
+
+    })( jQuery );
+
+    /** Static function called from the HTML DOM remove term icon element */
+    function remove_this_term_handler( button ){
+
+        // Define the term display block DOM element
+        var term_container = button.parentNode;
+        // Define the term's text string
+        var term_text = term_container.querySelector('#term_name').innerText;
+        // Define the hidden replacement terms input field DOM element
+        var replacement_field = button.parentNode.parentNode.querySelector( 'input[type="hidden"]' );
+        // Parse the hidden replacement terms input value to a usable JSON array
+        var replacement_terms = JSON.parse( replacement_field.value );
+
+        // Instantiate the return_terms array
+        var return_terms = [];
+
+        // Alert the user they are about to remove a term, requires confirmation to proceed
+        var confirmation = confirm( "Are you sure you would like to remove this term?" );
+        if ( confirmation == true ){
+            for( var i = 0; i < replacement_terms.length; i++ ){
+                // Remove the term from the display container
+                if ( term_text == replacement_terms[i] ){
+                    term_container.remove();
+                }
+
+                // If the term does not match, add the remaining terms to the return_terms array
+                if ( term_text != replacement_terms[i] ){
+                    return_terms.push( replacement_terms[i] );
+                }
+            }
+        }
+
+        // Set the hidden replacement input value to the remaining terms
+        replacement_field.value = JSON.stringify( return_terms );
+    };
+
+</script>
+
+{% include '/site_template/footer.html' %}
